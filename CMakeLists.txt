@@ -22,7 +22,12 @@ cmake_minimum_required(VERSION 3.10.2)
 
 # NONE = this project has no language toolchain requirement.
 project(Vulkan-Headers NONE)
-set(VERSION_STRING "1.1.127")
+
+file(READ include/vulkan/vulkan_core.h ver)
+string(REGEX MATCH "#define VK_HEADER_VERSION ([0-9]*)" _ ${ver})
+set(VK_HEADER_VERSION "${CMAKE_MATCH_1}")
+set(VERSION_STRING "1.2.${VK_HEADER_VERSION}")
+message(STATUS "Found Vulkan-Headers VERSION_STRING '${VERSION_STRING}'")
 
 option(VULKAN_HEADERS_SKIP_INSTALL "Skip install" OFF)
 
